@@ -1,3 +1,18 @@
-node_modules/
+# Compiled binary
 prism
+!src/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.*
+
+# Internal
 docs/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db

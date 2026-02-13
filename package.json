@@ -5,7 +5,7 @@
   "bin": {
     "prism": "src/cli.ts"
   },
-  "description": "Visual explanations from the terminal via Nano Banana Pro",
+  "description": "Visual explanations from the terminal",
   "engines": {
     "bun": ">=1.0.0"
   },
