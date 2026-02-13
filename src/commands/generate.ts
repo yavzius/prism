@@ -1,7 +1,7 @@
 import type { ParsedArgs, Page } from "../types.js";
 import { generatePageId, savePage, pageImagePath } from "../lib/pages.js";
 import { getGuide } from "../guides/index.js";
-import { status, printGenerationResult } from "../lib/output.js";
+import { status, printGenerationResult, printInlineImage } from "../lib/output.js";
 import * as gemini from "../providers/gemini.js";
 
 // ── Size Resolution ──────────────────────────────────────────────────────────
@@ -53,6 +53,7 @@ export async function run(prompt: string, args: ParsedArgs): Promise<void> {
   savePage(page, result.imageData);
 
   printGenerationResult(page, json);
+  if (!json) printInlineImage(page.imagePath);
 
   if (args.flags.open === true) {
     const proc = Bun.spawn(["open", page.imagePath], { stdout: "ignore", stderr: "ignore" });

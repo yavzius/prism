@@ -1,3 +1,4 @@
+import { readFileSync } from "fs";
 import type { Page } from "../types.js";
 
 const SEPARATOR = "═".repeat(70);
@@ -6,6 +7,27 @@ const SEPARATOR = "═".repeat(70);
 
 export function status(message: string): void {
   console.error(message);
+}
+
+// ── Inline Image (iTerm2 / compatible terminals) ────────────────────────────
+
+function isItermCompatible(): boolean {
+  return process.env.TERM_PROGRAM === "iTerm.app"
+    || process.env.LC_TERMINAL === "iTerm2"
+    || process.env.TERM_PROGRAM === "WezTerm";
+}
+
+export function printInlineImage(imagePath: string): void {
+  if (!isItermCompatible()) return;
+
+  const data = readFileSync(imagePath);
+  const b64 = data.toString("base64");
+  const name = Buffer.from(imagePath.split("/").pop() ?? "image.png").toString("base64");
+
+  // iTerm2 inline image protocol: OSC 1337 ; File=[args] : base64data ST
+  process.stderr.write(
+    `\x1b]1337;File=name=${name};size=${data.length};inline=1:${b64}\x07\n`,
+  );
 }
 
 // ── Time Ago ─────────────────────────────────────────────────────────────────

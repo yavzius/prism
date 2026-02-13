@@ -1,6 +1,6 @@
 import type { ParsedArgs } from "../types.js";
 import { loadPage, loadLatestPage, listPages, toggleStar } from "../lib/pages.js";
-import { status, printPageList, printPagePath, printPrompt } from "../lib/output.js";
+import { status, printPageList, printPagePath, printPrompt, printInlineImage } from "../lib/output.js";
 
 // ── Get ──────────────────────────────────────────────────────────────────────
 
@@ -14,6 +14,7 @@ export function get(idOrLatest: string, args: ParsedArgs): void {
   }
 
   printPagePath(page, json);
+  if (!json) printInlineImage(page.imagePath);
 }
 
 // ── List ─────────────────────────────────────────────────────────────────────
