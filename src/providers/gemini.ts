@@ -28,8 +28,6 @@ export async function generateImage(
     throw new Error("Gemini API key not set. Run 'prism setup' for instructions.");
   }
 
-  const thinkingBudget = options.thinking ? 8192 : 0;
-
   const response = await fetch(`${BASE_URL}/models/${MODEL}:generateContent?key=${apiKey}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -42,7 +40,7 @@ export async function generateImage(
       }],
       generationConfig: {
         responseModalities: ["TEXT", "IMAGE"],
-        ...(thinkingBudget > 0 ? { thinking: { thinkingBudget } } : {}),
+        ...(options.thinking ? { thinkingConfig: { thinkingBudget: 8192 } } : {}),
       },
     }),
   });

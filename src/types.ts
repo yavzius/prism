@@ -26,7 +26,7 @@ export interface GeminiImageRequest {
   }>;
   generationConfig: {
     responseModalities: string[];
-    thinking?: { thinkingBudget: number };
+    thinkingConfig?: { thinkingBudget: number };
   };
 }
 
