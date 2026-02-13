@@ -62,8 +62,6 @@ function parseArgs(argv: string[]): ParsedArgs {
       flags.json = true;
     } else if (arg === "--open") {
       flags.open = true;
-    } else if (arg === "--raw") {
-      flags.raw = true;
     } else if (arg === "--thinking") {
       flags.thinking = true;
     } else if (arg === "--starred") {
