@@ -1,0 +1,23 @@
+{
+  "name": "prism-cli",
+  "version": "0.1.0",
+  "main": "src/cli.ts",
+  "bin": {
+    "prism": "src/cli.ts"
+  },
+  "description": "Visual explanations from the terminal via Nano Banana Pro",
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "bun run src/cli.ts",
+    "build": "bun build --compile src/cli.ts --outfile prism",
+    "typecheck": "bun x tsc --noEmit"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "^1.3.9",
+    "typescript": "^5.9.3"
+  }
+}
