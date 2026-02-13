@@ -1,6 +1,6 @@
 import type { ParsedArgs, Page } from "../types.js";
 import { generatePageId, savePage, pageImagePath } from "../lib/pages.js";
-import { getGuide } from "../lib/guides.js";
+import { getGuide } from "../guides/index.js";
 import { status, printGenerationResult } from "../lib/output.js";
 import * as gemini from "../providers/gemini.js";
 

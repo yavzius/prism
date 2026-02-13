@@ -2,7 +2,7 @@
 
 Visual explanations from the terminal.
 
-Prism generates charts, diagrams, infographics, and architecture maps using [Gemini](https://ai.google.dev)'s image generation. Each generation is archived with a short ID, so you can retrieve, star, and recall prompts later. 14 built-in prompt guides handle the structure — you just describe what you want to see.
+Prism generates charts, diagrams, UI mockups, infographics, and architecture maps using [Gemini](https://ai.google.dev)'s image generation. Each generation is archived with a short ID, so you can retrieve, star, and recall prompts later. 28 built-in prompt guides — each grounded in cognitive load principles — handle the structure. You describe what you want to see.
 
 ```
 $ prism "bar chart of JS bundler build times: Webpack 12s, Vite 0.4s, esbuild 0.1s, Turbopack 0.8s, Rollup 4s" --guide bar-chart
@@ -116,16 +116,30 @@ prism prompt <id>                         # Print exact prompt used
 
 ### Guides
 
-14 built-in guides that structure your prompts for specific visualization types:
+28 built-in guides that structure your prompts for specific visualization types. Each guide includes Gemini-optimized style anchors, cognitive load principles, a prompt template, and an example.
 
 ```bash
 prism guides                              # List all guides
 prism guide <name>                        # Show full guide content
 ```
 
-Available guides: `architecture`, `flow`, `comparison`, `timeline`, `hierarchy`, `concept-map`, `bar-chart`, `line-chart`, `pie-chart`, `table`, `infographic`, `sequence`, `anatomy`, `before-after`
+**Data & Charts** — `bar-chart`, `line-chart`, `pie-chart`, `heatmap`
 
-Each guide contains when-to-use criteria, design principles, a prompt structure template, and an example prompt. When you pass `--guide`, the guide content is prepended to your prompt.
+**Tables & Grids** — `table`, `dashboard`
+
+**Structure & Relationships** — `architecture`, `hierarchy`, `er-diagram`, `concept-map`, `venn`
+
+**Process & Flow** — `flow`, `sequence`, `timeline`, `state-diagram`, `funnel`
+
+**Comparison & Decision** — `comparison`, `before-after`, `quadrant`
+
+**Explanation & Teaching** — `explainer`, `anatomy`, `infographic`, `mind-map`
+
+**Design & Ideation** — `wireframe`, `mockup`, `landing-page`, `component`
+
+**Planning** — `roadmap`
+
+When you pass `--guide`, the guide content is prepended to your prompt.
 
 ### JSON Output
 
@@ -147,11 +161,15 @@ src/
 │   ├── retrieve.ts     ← Get, list, star, prompt recall
 │   ├── guides.ts       ← Guide listing and display
 │   └── setup.ts        ← API key configuration
+├── guides/
+│   ├── index.ts        ← Guide registry and lookup
+│   ├── architecture.ts ← Each guide is its own file
+│   ├── wireframe.ts
+│   └── ...             ← 28 guides total
 ├── providers/
 │   └── gemini.ts       ← Gemini API client (typed request/response)
 └── lib/
     ├── config.ts       ← API key loading, version constant
-    ├── guides.ts       ← 14 embedded prompt guides
     ├── pages.ts        ← Page storage (ID generation, save/load)
     └── output.ts       ← Terminal + JSON output formatting
 ```
@@ -160,7 +178,8 @@ src/
 
 - **Provider** is a pure API client handling Gemini's image generation endpoint with typed requests and responses.
 - **Commands** orchestrate the workflow for each user action, composing the provider and lib utilities.
-- **Lib** modules handle stateless concerns: prompt guides, page persistence, configuration, formatting.
+- **Guides** are individual files — each contains style anchors, cognitive principles, a prompt template, and an example. They're bundled into the binary at compile time.
+- **Lib** modules handle stateless concerns: page persistence, configuration, formatting.
 
 No runtime dependencies. Compiles to a single binary via `bun build --compile`.
 

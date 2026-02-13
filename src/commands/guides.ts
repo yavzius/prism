@@ -1,4 +1,4 @@
-import { getAllGuides, getGuide } from "../lib/guides.js";
+import { getAllGuides, getGuide } from "../guides/index.js";
 
 // ── List Guides ──────────────────────────────────────────────────────────────
 
