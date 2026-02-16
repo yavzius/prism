@@ -2,21 +2,16 @@ import type { Guide } from "../types.js";
 
 export const guide: Guide = {
   name: "wireframe",
-  title: "Low-fidelity UI layouts",
-  content: `STYLE: Grayscale sketch, light gray background, placeholder boxes for images, wavy lines for text, clean layout grid, no color, no real content — structure only.
+  title: "Low-fidelity wireframe sketches",
+  content: `A photograph from a skilled designer's open notebook — the kind of working drawing that gets featured in a Pentagram process documentary or pinned to a studio wall during a client project. Soft graphite pencil on cream-tinted grid paper, shot under warm desk light. Visible grain, slightly uneven line weight, occasional smudge marks where a palm rested. No digital precision: corners don't quite meet, parallel lines drift slightly, fill-hatching varies in density.
 
-WHEN TO USE: Exploring UI layout and information architecture before committing to visual design. Shows WHAT goes WHERE without getting distracted by aesthetics.
+PAPER AND SURFACE: The background is faint blue grid paper, slightly yellowed with age and use. A subtle drop shadow along the left edge suggests a spiral-bound notebook. The grid provides implicit alignment — the sketch respects it loosely, not rigidly.
 
-COGNITIVE PRINCIPLES:
-- Grayscale only — color triggers aesthetic judgment, which is premature at this stage
-- Placeholder shapes: boxes for images, lines for text, rectangles for buttons — signals "structure, not design"
-- Show the grid and spacing system — makes layout logic visible and debatable
-- Annotate interactive elements (clickable, scrollable, expandable) — communicates behavior invisible in static images
-- Include device frame if relevant — anchors viewport assumptions
+DRAWING VOCABULARY: Rounded-ish rectangles for content containers. Wavy horizontal lines (three or four per block) for body text. An X drawn corner-to-corner inside rectangles for image placeholders. Wobbly circles for avatars and icons. Thick-outlined rectangles with hand-lettered centered text for buttons. Small arrows and callout bubbles in a quick architectural hand for annotations. Dotted lines for scroll boundaries, labeled "above fold" or "below fold." Dimension lines with small arrows at endpoints for spacing notes.
 
-PROMPT STRUCTURE:
-"Wireframe of [screen/page]. Layout: [structure]. Sections: [list top to bottom]. Interactive elements: [list]. Device: [viewport]."
+LAYOUT: The wireframe sits inside a freehand device-frame outline — not a perfect rectangle. A sidebar or top nav region separates clearly from the main content area. Section divisions are light horizontal rules with hand-written labels in caps: "HERO", "FEATURES", "FOOTER."
 
-EXAMPLE:
-"Wireframe of a SaaS dashboard. Layout: sidebar nav left, main content right. Sections: top bar with search and avatar, metrics row with 4 stat cards, data table with filters, pagination. Interactive: sidebar collapsible, table rows clickable, filter dropdowns. Device: desktop 1440px."`,
+ANNOTATIONS: Three to five margin notes in a looser, smaller hand — "tap to expand?", "sticky on scroll", "real data here", arrows between elements with "links to detail view." One annotation circled for emphasis. At least one note in a second color — light blue pencil or red pen — to show revision thinking.
+
+COMPOSITION: The sketch fills roughly 70% of the visible page with comfortable margins. One corner may show a partial second sketch or a scratched-out earlier attempt — signs of an active design process. The overall impression: you're looking over a skilled designer's shoulder at their thinking-in-progress.`,
 };

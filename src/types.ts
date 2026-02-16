@@ -3,11 +3,13 @@
 export interface Page {
   id: string;
   prompt: string;
+  basePrompt?: string;
   guideName?: string;
   size: string;
   starred: boolean;
   timestamp: number;
   imagePath: string;
+  mimeType?: string;
 }
 
 // ── Guide ────────────────────────────────────────────────────────────────────

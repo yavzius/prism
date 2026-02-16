@@ -4,7 +4,7 @@ import { status, printPageList, printPagePath, printPrompt, printInlineImage } f
 
 // ── Get ──────────────────────────────────────────────────────────────────────
 
-export function get(idOrLatest: string, args: ParsedArgs): void {
+export async function get(idOrLatest: string, args: ParsedArgs): Promise<void> {
   const json = args.flags.json === true;
 
   const page = idOrLatest === "latest" ? loadLatestPage() : loadPage(idOrLatest);
@@ -15,6 +15,11 @@ export function get(idOrLatest: string, args: ParsedArgs): void {
 
   printPagePath(page, json);
   if (!json) printInlineImage(page.imagePath);
+
+  if (args.flags.open === true) {
+    const proc = Bun.spawn(["open", page.imagePath], { stdout: "ignore", stderr: "ignore" });
+    await proc.exited;
+  }
 }
 
 // ── List ─────────────────────────────────────────────────────────────────────

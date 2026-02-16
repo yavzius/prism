@@ -18,7 +18,7 @@ function isItermCompatible(): boolean {
 }
 
 export function printInlineImage(imagePath: string): void {
-  if (!isItermCompatible()) return;
+  if (!isItermCompatible() || !process.stderr.isTTY) return;
 
   const data = readFileSync(imagePath);
   const b64 = data.toString("base64");
@@ -67,9 +67,8 @@ export function printPageList(pages: Page[], json: boolean): void {
   console.log();
   for (const page of pages) {
     const star = page.starred ? "★" : " ";
-    const snippet = page.prompt.length > 50
-      ? `${page.prompt.slice(0, 50)}...`
-      : page.prompt;
+    const base = (page.basePrompt ?? page.prompt).replace(/\s+/g, " ").trim();
+    const snippet = base.length > 50 ? `${base.slice(0, 50)}...` : base;
     console.log(`[${page.id}] ${star} "${snippet}" (${sizeLabel(page.size)}) ${timeAgo(page.timestamp)}`);
   }
   console.log();

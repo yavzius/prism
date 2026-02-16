@@ -12,6 +12,7 @@ node_modules/
 # Internal
 docs/
 .claude/
+.prism/
 
 # OS
 .DS_Store

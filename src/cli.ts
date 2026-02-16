@@ -6,6 +6,8 @@ import * as generate from "./commands/generate.js";
 import * as retrieve from "./commands/retrieve.js";
 import * as guides from "./commands/guides.js";
 import * as setup from "./commands/setup.js";
+import * as varCmd from "./commands/var.js";
+import * as pack from "./commands/pack.js";
 
 // ── Help ─────────────────────────────────────────────────────────────────────
 
@@ -15,9 +17,21 @@ prism v${VERSION} — Visual explanations from the terminal
 GENERATE
   prism "prompt"                        Generate image, archive with 3-char ID
   prism "prompt" --guide NAME           Use a prompt guide
+  prism "prompt" --var                  Generate 4 variations (2x2 grid, A/B/C/D)
+  prism "prompt" --ref REF              Reference an image (id, latest, or file path)
   prism "prompt" --size SIZE            square (default), wide, tall, WxH
   prism "prompt" --thinking             Enable thinking mode for complex layouts
   prism "prompt" --open                 Open image after generation
+
+VARIATIONS
+  prism var <id|latest> <A|B|C|D>       Expand a variation to full image
+  prism var <id> <A|B|C|D> --var        Generate 4 sub-variations of a pick
+
+PACKS
+  prism pack frontend "brief"           Wireframes + mockups + component sheet
+  prism pack frontend "brief" --wireframe-pick B --mockup-pick C
+                                       Expand picks and keep them style-consistent
+  prism pack frontend "brief" --out DIR Copy outputs + write DIR/pack.json
 
 RETRIEVE
   prism get <id>                        Get image path by ID
@@ -36,8 +50,12 @@ PROMPT RECALL
   prism prompt <id>                     Print the exact prompt used
 
 SETUP
-  prism setup                           Check API key status
+  prism setup                           Check API key status + configure Claude Code
   prism setup gemini <key>              Save Gemini API key
+  prism setup claude                    Add prism to ~/.claude/CLAUDE.md
+
+  When configured, setup automatically adds prism to ~/.claude/CLAUDE.md
+  so Claude Code knows to use it.
 
 OPTIONS
   --json                                Output as JSON
@@ -64,6 +82,8 @@ function parseArgs(argv: string[]): ParsedArgs {
       flags.open = true;
     } else if (arg === "--thinking") {
       flags.thinking = true;
+    } else if (arg === "--var") {
+      flags.var = true;
     } else if (arg === "--starred") {
       flags.starred = true;
     } else if (arg.startsWith("--")) {
@@ -107,7 +127,7 @@ async function main(): Promise<void> {
       console.error("Usage: prism get <id|latest>");
       process.exit(1);
     }
-    retrieve.get(id, args);
+    await retrieve.get(id, args);
     return;
   }
 
@@ -125,6 +145,18 @@ async function main(): Promise<void> {
       process.exit(1);
     }
     retrieve.star(id, args);
+    return;
+  }
+
+  // prism var <id> <letter>
+  if (command === "var") {
+    const id = args.positional[1];
+    const letter = args.positional[2];
+    if (!id || !letter) {
+      console.error("Usage: prism var <id|latest> <A|B|C|D>");
+      process.exit(1);
+    }
+    await varCmd.run(id, letter, args);
     return;
   }
 
@@ -159,6 +191,18 @@ async function main(): Promise<void> {
   // prism setup [gemini] [key]
   if (command === "setup") {
     setup.run(args.positional.slice(1));
+    return;
+  }
+
+  // prism pack <type> <brief>
+  if (command === "pack") {
+    const type = args.positional[1];
+    const brief = args.positional.slice(2).join(" ");
+    if (!type || !brief) {
+      console.error("Usage: prism pack frontend \"brief\"");
+      process.exit(1);
+    }
+    await pack.run(type, brief, args);
     return;
   }
 

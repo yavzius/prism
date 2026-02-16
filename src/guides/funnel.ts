@@ -3,20 +3,17 @@ import type { Guide } from "../types.js";
 export const guide: Guide = {
   name: "funnel",
   title: "Conversion and pipeline funnels",
-  content: `STYLE: Tapered funnel (wide top, narrow bottom), white background, labeled stages with counts, color gradient light-to-dark as funnel narrows, drop-off annotations.
+  content: `Create a conversion funnel with the analytical clarity of Amplitude's product dashboards or a McKinsey slide on pipeline attrition — the story of progressive narrowing, where each stage is tighter, more focused, more valuable than the last.
 
-WHEN TO USE: Showing progressive narrowing — conversion pipelines, recruitment, CI/CD stages — where drop-off at each stage is the key insight.
+CANVAS: A warm off-white (#F4F1EC) with the faintest grain. The funnel sits centered with generous margins. The right side is reserved for drop-off annotations; the left breathes. About a third of the canvas is open space.
 
-COGNITIVE PRINCIPLES:
-- Width represents volume — the visual metaphor is immediate and intuitive
-- Label each stage with name AND metric — "Visited: 10,000" not just "Visited"
-- Show drop-off rates between stages — this is the actionable insight
-- Color gradient light (top) to dark (bottom) — reinforces narrowing progression
-- Maximum 6-7 stages — more makes the funnel too thin to label at bottom
+THE FUNNEL: Vertically stacked horizontal trapezoid segments, widest at the top and narrowing proportionally toward the bottom. Each segment is a distinct stage, separated by slim warm-white gaps. The color progression shifts from a cool, muted tone at the wide top to a deep, saturated tone at the narrow bottom — think pale stone at the entry through a confident mid-blue (#3568A6) to a rich deep indigo (#1E2952) at the final stage. The narrowing is proportional to the actual drop-off, so the shape itself encodes the data. No decorative gradients on individual segments — solid fills that darken as you descend.
 
-PROMPT STRUCTURE:
-"Funnel showing [process]. Stages: [list with counts/percentages]. Highlight [biggest drop-off]. Show overall conversion [rate]."
+LABELS: Each segment carries two pieces of information: the stage name on the left side and the count or percentage on the right. Light text on dark segments, dark text on the lighter top stages. Between each pair of adjacent stages, a small floating badge shows the drop-off rate — a compact pill shape with a warm rose tint and muted red text (something like "−68%"). These badges sit to the right of the funnel, connected by thin dotted lines. They are the editorial layer — they tell the story of where users fall away.
 
-EXAMPLE:
-"Funnel showing SaaS signup conversion. Stages: Landing visits 10,000, Signup page 3,200 (32%), Email verified 2,400 (75%), Onboarding started 1,800 (75%), First project 900 (50%), Paid 180 (20%). Highlight biggest drop-off between landing and signup. Overall conversion 1.8%."`,
+THE PAYOFF: Below the final stage, the overall conversion rate in a bold accent green (#2A8B5E). This is the number the viewer came for. Give it prominence and breathing room.
+
+TYPOGRAPHY: The funnel title sits top-left in a bold face with character. Stage labels inside segments are clean and readable. Drop-off annotations are compact. The conversion rate at the bottom is the largest number on the canvas.
+
+Maximum six stages to keep the bottom segment readable. The overall feel: you feel the attrition — each step tighter, more focused, more valuable.`,
 };

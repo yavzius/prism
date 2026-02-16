@@ -13,7 +13,7 @@ $ prism "bar chart of JS bundler build times: Webpack 12s, Vite 0.4s, esbuild 0.
 [a7c] Generated (square)
 ══════════════════════════════════════════════════════════════════════════
 
-~/.cache/prism/pages/a7c.png
+~/.cache/prism/pages/a7c.jpg
 ```
 
 Build a library over time:
@@ -84,6 +84,16 @@ Check status anytime:
 prism setup
 ```
 
+### Claude Code Integration
+
+Once the API key is configured, `prism setup` automatically adds a Prism reference to `~/.claude/CLAUDE.md` so Claude Code knows how to use it.
+
+You can also run it explicitly:
+
+```bash
+prism setup claude
+```
+
 ## Usage
 
 ### Generate
@@ -91,12 +101,23 @@ prism setup
 ```bash
 prism "your prompt"                       # Generate image
 prism "prompt" --guide architecture       # Use a prompt guide
+prism "prompt" --ref latest               # Reference an existing generation (style/layout)
 prism "prompt" --size wide                # wide, tall, square (default), WxH
 prism "prompt" --thinking                 # Enable thinking for complex layouts
 prism "prompt" --open                     # Open image after generation
 ```
 
 The default size is `square` (1024x1024). `wide` is 1536x1024, `tall` is 1024x1536, or pass a custom `WxH`.
+
+### Storage Location
+
+By default, generations are stored in `~/.cache/prism/pages/` as `<id>.(jpg|png|...)` + `<id>.json`.
+
+Override the directory (for project-local storage or sandboxed environments) with:
+
+```bash
+export PRISM_PAGES_DIR=./.prism/pages
+```
 
 ### Retrieve
 
@@ -141,6 +162,22 @@ prism guide <name>                        # Show full guide content
 
 When you pass `--guide`, the guide content is prepended to your prompt.
 
+### Frontend Packs
+
+Generate a small “design pack” for a Next.js/Tailwind build: wireframe variations, mockup variations, and a component sheet (optionally expanding picks).
+
+```bash
+prism pack frontend "settings page: Profile, Notifications, Billing"
+prism pack frontend "settings page: Profile, Notifications, Billing" --wireframe-pick B --mockup-pick C
+prism pack frontend "settings page: Profile, Notifications, Billing" --wireframe-pick B --mockup-pick C --out ./.prism/packs/settings
+```
+
+Use `--json` to pipe the resulting image paths into other tools:
+
+```bash
+prism pack frontend "settings page: Profile, Notifications, Billing" --wireframe-pick B --mockup-pick C --json | jq '.items'
+```
+
 ### JSON Output
 
 Every command supports `--json` for piping into other tools:
@@ -159,6 +196,7 @@ src/
 ├── commands/
 │   ├── generate.ts     ← Generate command: prompt → Gemini → archive
 │   ├── retrieve.ts     ← Get, list, star, prompt recall
+│   ├── pack.ts         ← Multi-step packs (frontend)
 │   ├── guides.ts       ← Guide listing and display
 │   └── setup.ts        ← API key configuration
 ├── guides/
